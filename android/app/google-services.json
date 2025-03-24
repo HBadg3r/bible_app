@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "212040772370",
+    "project_id": "bibleapp-cba71",
+    "storage_bucket": "bibleapp-cba71.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212040772370:android:fb0bd62c14c0528c0e61cb",
+        "android_client_info": {
+          "package_name": "com.example.bible_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc-IADgrtH7Encye3o5t198ETIwKGNdLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
