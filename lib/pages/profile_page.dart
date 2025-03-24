@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 
+// Stateless widget that displays user profile info and account settings
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -15,6 +16,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
+    // Logs out the user and navigates back to login screen
     void logout(BuildContext context) async {
       try {
         await AuthService().signOut();
@@ -22,7 +24,7 @@ class ProfilePage extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => LoginPage()),
-          (route) => false,
+          (route) => false, // removes all previous routes
         );
       } on FirebaseAuthException catch (e) {
         print(e.message);
@@ -39,6 +41,8 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
+
+            // Avatar and user info (name + email)
             Center(
               child: Column(
                 children: [
@@ -58,12 +62,17 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 30),
+
+            // Settings section header
             const Text(
               "Settings",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const Divider(),
+
+            // Navigate to Update Username Page
             ListTile(
               title: const Text("Update username"),
               trailing: const Icon(Icons.arrow_forward_ios),
@@ -76,6 +85,8 @@ class ProfilePage extends StatelessWidget {
                 );
               },
             ),
+
+            // Navigate to Change Password Page
             ListTile(
               title: const Text("Change password"),
               trailing: const Icon(Icons.arrow_forward_ios),
@@ -88,6 +99,8 @@ class ProfilePage extends StatelessWidget {
                 );
               },
             ),
+
+            // Navigate to Delete Account Page
             ListTile(
               title: const Text("Delete my account"),
               trailing: const Icon(Icons.arrow_forward_ios),
@@ -100,7 +113,11 @@ class ProfilePage extends StatelessWidget {
                 );
               },
             ),
+
+            // Push logout/home buttons to bottom
             const Spacer(),
+
+            // Row with Logout and Go to Home Page buttons
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

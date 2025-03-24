@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../services/auth_service.dart';
 import 'profile_page.dart';
 
+// Login screen widget that allows users to authenticate with email/password
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -13,9 +14,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // Controllers for user input
   final TextEditingController controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
+
+  // Key used to validate the form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // Holds the error message displayed to the user
   String errorMessage = '';
 
   @override
@@ -25,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  // Sign in method using Firebase authentication
   void signIn() async {
     try {
       await AuthService().signIn(
@@ -32,11 +39,13 @@ class _LoginPageState extends State<LoginPage> {
         password: controllerPassword.text.trim(),
       );
 
+      // Navigate to the profile page upon successful login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const ProfilePage()),
       );
     } on FirebaseAuthException catch (e) {
+      // Show error message if login fails
       setState(() {
         errorMessage = e.message ?? 'This is not working';
       });
@@ -54,8 +63,12 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               const SizedBox(height: 32),
+
+              // Lock icon at the top of the form
               const Icon(Icons.vpn_key, size: 60, color: Colors.amber),
               const SizedBox(height: 32),
+
+              // Email input field with validation
               TextFormField(
                 controller: controllerEmail,
                 decoration: const InputDecoration(labelText: 'Email'),
@@ -64,6 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                     : null,
               ),
               const SizedBox(height: 16),
+
+              // Password input field with validation
               TextFormField(
                 controller: controllerPassword,
                 decoration: const InputDecoration(labelText: 'Password'),
@@ -73,6 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                     : null,
               ),
               const SizedBox(height: 10),
+
+              // Link to the reset password page
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -87,6 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text('Reset password'),
                 ),
               ),
+
+              // Display error message if sign-in fails
               if (errorMessage.isNotEmpty) ...[
                 Text(
                   errorMessage,
@@ -94,6 +113,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 10),
               ],
+
+              // Sign in button
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.greenAccent.shade400,
@@ -107,13 +128,14 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: const Text('Sign in'),
               ),
+
+              // Navigation link to registration page
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const RegistrationPage(), // import if needed
+                      builder: (context) => const RegistrationPage(),
                     ),
                   );
                 },

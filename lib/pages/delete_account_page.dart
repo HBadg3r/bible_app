@@ -2,6 +2,7 @@ import 'package:bible_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
+// Stateful widget for securely deleting the user's account
 class DeleteAccountPage extends StatefulWidget {
   const DeleteAccountPage({super.key});
 
@@ -10,11 +11,17 @@ class DeleteAccountPage extends StatefulWidget {
 }
 
 class _DeleteAccountPageState extends State<DeleteAccountPage> {
+  // Form key for validation
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Controllers for user email and password input
   final TextEditingController controllerEmail = TextEditingController();
   final TextEditingController controllerPassword = TextEditingController();
+
+  // Message to display if an error occurs
   String errorMessage = '';
 
+  // Dispose controllers to avoid memory leaks
   @override
   void dispose() {
     controllerEmail.dispose();
@@ -22,12 +29,15 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
     super.dispose();
   }
 
+  // Call AuthService to reauthenticate and delete the user's account
   void deleteAccount() async {
     try {
       await authService.value.deleteAccount(
         email: controllerEmail.text.trim(),
         password: controllerPassword.text.trim(),
       );
+
+      // Navigate to the login screen after successful deletion
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -35,6 +45,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
         ),
       );
     } catch (e) {
+      // If an error occurs, show it in the UI
       setState(() {
         errorMessage = 'Error deleting account: ${e.toString()}';
       });
@@ -52,8 +63,12 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           child: Column(
             children: [
               const SizedBox(height: 32),
+
+              // Red "X" icon for emphasis
               const Icon(Icons.clear, size: 60, color: Colors.red),
               const SizedBox(height: 32),
+
+              // Email input field
               TextFormField(
                 controller: controllerEmail,
                 decoration:
@@ -62,6 +77,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     value == null || value.isEmpty ? 'Enter your email' : null,
               ),
               const SizedBox(height: 16),
+
+              // Password input field (obscured)
               TextFormField(
                 controller: controllerPassword,
                 obscureText: true,
@@ -72,6 +89,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     : null,
               ),
               const SizedBox(height: 20),
+
+              // Display error message if present
               if (errorMessage.isNotEmpty) ...[
                 Text(
                   errorMessage,
@@ -79,6 +98,8 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                 ),
                 const SizedBox(height: 10),
               ],
+
+              // Delete account button
               ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {

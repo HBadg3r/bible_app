@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 
+// Stores any error message to display during registration
 String errorMessage = '';
 
+// Stateful widget for user registration
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
 
@@ -12,10 +14,14 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegistrationPage> {
+  // Key for form validation
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  // Controllers to handle input from email and password fields
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  // Handles user registration logic
   void register() async {
     try {
       await AuthService().createAccount(
@@ -23,7 +29,7 @@ class _RegisterPageState extends State<RegistrationPage> {
         password: _passwordController.text.trim(),
       );
 
-      popPage();
+      popPage(); // Navigate back after successful registration
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message ?? 'There is an error';
@@ -31,6 +37,7 @@ class _RegisterPageState extends State<RegistrationPage> {
     }
   }
 
+  // Navigates back to the previous screen (e.g. login)
   void popPage() {
     Navigator.pop(context);
   }
@@ -38,7 +45,7 @@ class _RegisterPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF101010),
+      backgroundColor: const Color(0xFF101010), // Dark background
       appBar: AppBar(
         title: const Text('Register'),
         backgroundColor: Colors.transparent,
@@ -48,15 +55,19 @@ class _RegisterPageState extends State<RegistrationPage> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Form(
-            key: _formKey,
+            key: _formKey, // Connects to the validators
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32),
+
+                // Icon at the top
                 const Center(
                   child: Icon(Icons.vpn_key, size: 80, color: Colors.amber),
                 ),
                 const SizedBox(height: 32),
+
+                // Email input field
                 TextFormField(
                   controller: _emailController,
                   style: const TextStyle(color: Colors.white),
@@ -73,6 +84,8 @@ class _RegisterPageState extends State<RegistrationPage> {
                   },
                 ),
                 const SizedBox(height: 16),
+
+                // Password input field
                 TextFormField(
                   controller: _passwordController,
                   style: const TextStyle(color: Colors.white),
@@ -81,7 +94,7 @@ class _RegisterPageState extends State<RegistrationPage> {
                     labelStyle: TextStyle(color: Colors.white),
                     border: OutlineInputBorder(),
                   ),
-                  obscureText: true,
+                  obscureText: true, // Hides password text
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter password';
@@ -89,11 +102,16 @@ class _RegisterPageState extends State<RegistrationPage> {
                     return null;
                   },
                 ),
+
+                // Display error message (if any)
                 Text(
                   errorMessage ?? '',
                   style: const TextStyle(color: Colors.redAccent),
                 ),
+
                 const SizedBox(height: 32),
+
+                // Register button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.greenAccent.shade400,
@@ -102,7 +120,7 @@ class _RegisterPageState extends State<RegistrationPage> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      register();
+                      register(); // Trigger registration
                     }
                   },
                   child: const Text('Register'),
