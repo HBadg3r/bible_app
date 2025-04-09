@@ -2,7 +2,6 @@ import 'package:bible_app/pages/change_password_page.dart';
 import 'package:bible_app/pages/delete_account_page.dart';
 import 'package:bible_app/pages/home_page.dart';
 import 'package:bible_app/pages/login_page.dart';
-import 'package:bible_app/pages/reset_password_page.dart';
 import 'package:bible_app/pages/update_username_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,8 +31,13 @@ class ProfilePage extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: const Color(0xFF101010), // Dark background
       appBar: AppBar(
-        title: const Text("My Profile"),
+        title: const Text(
+          "My Profile",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -53,11 +57,17 @@ class ProfilePage extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     user?.displayName ?? "User",
-                    style: Theme.of(context).textTheme.titleLarge,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(color: Colors.white),
                   ),
                   Text(
                     user?.email ?? "",
-                    style: Theme.of(context).textTheme.bodyMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Colors.white),
                   ),
                 ],
               ),
@@ -68,13 +78,19 @@ class ProfilePage extends StatelessWidget {
             // Settings section header
             const Text(
               "Settings",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
-            const Divider(),
+            const Divider(
+              color: Colors.greenAccent,
+            ),
 
             // Navigate to Update Username Page
             ListTile(
-              title: const Text("Update username"),
+              title: const Text("Update username",
+                  style: TextStyle(color: Colors.white)),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.push(
@@ -88,7 +104,8 @@ class ProfilePage extends StatelessWidget {
 
             // Navigate to Change Password Page
             ListTile(
-              title: const Text("Change password"),
+              title: const Text("Change password",
+                  style: TextStyle(color: Colors.white)),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.push(
@@ -102,7 +119,10 @@ class ProfilePage extends StatelessWidget {
 
             // Navigate to Delete Account Page
             ListTile(
-              title: const Text("Delete my account"),
+              title: const Text(
+                "Delete my account",
+                style: TextStyle(color: Colors.white),
+              ),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.push(
@@ -137,7 +157,10 @@ class ProfilePage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => HomePage()),
                       );
                     },
-                    child: const Text("Go to Home Page"),
+                    child: const Text(
+                      "Go to Home Page",
+                      style: TextStyle(color: Colors.greenAccent),
+                    ),
                   ),
                 ],
               ),
