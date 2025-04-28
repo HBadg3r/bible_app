@@ -124,25 +124,78 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 16),
 
             // Pinned Bible Verses Section
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              width: double.infinity, // Ensures it takes the full width
-              constraints: const BoxConstraints(
-                minHeight: 60, // Minimum height for 2-3 lines of text
-              ),
-              decoration: BoxDecoration(
-                color: const Color(0xFF101010), // Gray fill
-                border: Border.all(
-                    color: Colors.greenAccent), // Green accent border
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: const Text(
-                "Pinned Bible Verses: John 3:16, Psalms 23:4",
-                style: TextStyle(color: Colors.white),
+            const SizedBox(height: 16),
+
+            const Text(
+              "Pinned Bible Verses",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 8),
 
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              width: double.infinity,
+              constraints: const BoxConstraints(minHeight: 60),
+              decoration: BoxDecoration(
+                color: const Color(0xFF101010),
+                border: Border.all(color: Colors.greenAccent),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('pinned_verses')
+                    .where('userId',
+                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final verses = snapshot.data!.docs;
+
+                  if (verses.isEmpty) {
+                    return const Text(
+                      "No pinned verses yet.",
+                      style: TextStyle(color: Colors.white),
+                    );
+                  }
+
+                  return Column(
+                    children: verses.map((doc) {
+                      var data = doc.data() as Map<String, dynamic>;
+                      return InkWell(
+                        onTap: () {
+                          // Optional: You can add navigation to BiblePage or Verse Details here
+                        },
+                        child: Card(
+                          color: Colors.grey[800],
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                data['text'] ?? 'No Verse Text',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
             // Search Box, Reflection Toggle, View Options
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
