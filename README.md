@@ -89,25 +89,14 @@ The project was built following a modular, incremental development approach:
 
 ## Supporting Artifacts
 
-- [System Design Document](./docs/system-design.pdf)
-- [Technical Requirements Document](./docs/technical-requirements.pdf)
-- [Final Project Presentation Slides](./docs/final-presentation-slides.pdf)
-- [Test Case Report](./docs/test-cases.pdf)
-- [Screenshots of Application](./images/screenshots/)
-
+- [Wireframes and Site Maps](./artifacts/BibleJournalingWireframes-Sitemap-Logical-Physical.pdf)
+- [Traceability Matrix](./artifacts/CST-451%20SPJ%20TraceabilityMatrix.xlsx)
+- [User Stories Document](./artifacts/CST-451%20SPJ%20UserStories.xlsx)
+- [Test Case Template](./artifacts/CST-451%20Test%20Case%20Template.xlsx)
+- [System Architecture and Design Document](./artifacts/CST-452%20SPJ%20ProjectArchitecture%5E0Design.docx)
+- [Final Project Poster](./artifacts/CST-452%20SPJ%20ProjectPoster.pptx)
 ---
 
 ## Summary of Work Completed
 Throughout CST-451 and CST-452, the project evolved from an idea into a fully functional Bible journaling app, complete with scripture search, journaling, tagging, and AI-assisted reflection features. This project demonstrates not only technical competency in mobile app development and cloud integration but also a user-centered approach to design and security-conscious implementation. It serves as a culmination of the skills and knowledge acquired over the course of the Computer Science program.
 ```
-
----
-
-✅ This version **completely matches** the assignment's requirement list.  
-✅ It’s **professional**, **structured**, and **ready** for GitHub Pages publishing if you want to!
-
----
-
-Would you also like me to give you a **suggested folder structure** real quick? (to make uploading diagrams and documents cleaner)  
-It’ll take like 30 seconds if you want it! 🚀  
-Would you like that?
