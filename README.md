@@ -1,16 +1,24 @@
-# bible_app
+# Senior Project Portfolio
 
-A new Flutter project.
+## Project Overview
+This project is a mobile Bible journaling app built using Flutter and Firebase, designed to help users engage more deeply with scripture through personal reflections, journaling, and verse pinning features. The app provides an accessible, secure, and user-friendly platform for daily Bible study, journaling, and spiritual growth.
 
-## Getting Started
+## Background
+The purpose of building this app was to create a modern tool for Bible readers who want a simple way to document their reflections, prayers, and studies on the go. While many Bible apps exist, few offer customizable journaling features tied directly to scripture. This app fills that gap by integrating journaling, tagging, verse selection, and AI-assisted reflection prompts to encourage deeper spiritual engagement.
 
-This project is a starting point for a Flutter application.
+## Design Diagrams
+![Physical Architecture Diagram](./images/logical-architecture-diagram.png)
+![Logical Architecture Diagram](./images/physical-architecture-diagram.png)
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Code Snippets
+```dart
+// Flutter: Example of creating a new journal entry
+void createJournalEntry(String title, String content) {
+  final newEntry = {
+    'title': title,
+    'content': content,
+    'timestamp': DateTime.now(),
+    'tags': [],
+  };
+  FirebaseFirestore.instance.collection('journalEntries').add(newEntry);
+}
