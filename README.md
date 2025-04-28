@@ -7,8 +7,8 @@ This project is a mobile Bible journaling app built using Flutter and Firebase, 
 The purpose of building this app was to create a modern tool for Bible readers who want a simple way to document their reflections, prayers, and studies on the go. While many Bible apps exist, few offer customizable journaling features tied directly to scripture. This app fills that gap by integrating journaling, tagging, verse selection, and AI-assisted reflection prompts to encourage deeper spiritual engagement.
 
 ## Design Diagrams
-![Architecture Diagram](./images/architecture-diagram.png)
-![Database Diagram](./images/database-diagram.png)
+![Physical Architecture Diagram](./images/logical-architecture-diagram.png)
+![Logical Architecture Diagram](./images/physical-architecture-diagram.png)
 
 ## Code Snippets
 ```dart
